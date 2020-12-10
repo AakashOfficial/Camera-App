@@ -9,8 +9,8 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class Tab2Page implements OnInit {
 
-  constructor(public photoService: PhotoService, 
-            public actionSheetController: ActionSheetController) {}
+  constructor(public photoService: PhotoService,
+              public actionSheetController: ActionSheetController) {}
 
   async ngOnInit() {
     await this.photoService.loadSaved();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Plugins, CameraResultType, Capacitor, FilesystemDirectory, 
+import { Plugins, CameraResultType, Capacitor, FilesystemDirectory,
          CameraPhoto, CameraSource } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 
@@ -10,7 +10,7 @@ const { Camera, Filesystem, Storage } = Plugins;
 })
 export class PhotoService {
   public photos: Photo[] = [];
-  private PHOTO_STORAGE: string = "photos";
+  private PHOTO_STORAGE = 'photos';
   private platform: Platform;
 
   constructor(platform: Platform) {
@@ -20,9 +20,9 @@ export class PhotoService {
   public async addNewToGallery() {
     // Take a photo
     const capturedPhoto = await Camera.getPhoto({
-      resultType: CameraResultType.Uri, 
-      source: CameraSource.Camera, 
-      quality: 100 
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 100
     });
     const savedImageFile = await this.savePicture(capturedPhoto);
     this.photos.unshift(savedImageFile);
@@ -60,7 +60,7 @@ export class PhotoService {
     // “when the platform is NOT hybrid, do this”
     if (!this.platform.is('hybrid')) {
       // Display the photo by reading into base64 format
-      for (let photo of this.photos) {
+      for (const photo of this.photos) {
         // Read each saved photo's data from the Filesystem
         const readFile = await Filesystem.readFile({
             path: photo.filepath,
@@ -161,13 +161,13 @@ export class PhotoService {
   }
 
   convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
-    const reader = new FileReader;
+    const reader = new FileReader();
     reader.onerror = reject;
     reader.onload = () => {
         resolve(reader.result);
     };
     reader.readAsDataURL(blob);
-  });
+  })
 }
 
 export interface Photo {
